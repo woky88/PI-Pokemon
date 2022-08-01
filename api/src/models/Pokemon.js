@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    heigth: {
+    height: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
