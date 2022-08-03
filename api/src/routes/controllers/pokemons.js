@@ -1,5 +1,6 @@
 const axios = require('axios');
 
+// ***** FUNCTION TO GET ALL POKEMONS FOR API *****
 const getPokemons = async () => {
   try {
     const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=40&offset=0');
@@ -29,7 +30,9 @@ const getPokemons = async () => {
   }
 }
 
+// ***** Function to get pokemons by ID *****
+
 
 module.exports = {
-  getPokemons
+  getPokemons,
 }
