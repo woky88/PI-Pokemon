@@ -1,6 +1,7 @@
 const { Router } = require('express');
-const { getPokemonsAPI, getAllPokemons, getPokemonsInDb, getByName } = require('./controllers/pokemons.js');
+const { getAllPokemons, getPokemonsInDb, getByName } = require('./controllers/pokemons.js');
 const { getTypes } = require('./controllers/types.js');
+const { Pokemon, Type } = require('../db.js');
 
 
 const router = Router();
@@ -32,7 +33,7 @@ router.get('/pokemons', async (req, res) => {
 router.get('/pokemons/:id', async (req, res) => {
   const id = req.params.id;
   try {
-    const pokemonTotal = await getPokemonsAPI()
+    const pokemonTotal = await getAllPokemons()
     if (id) {
       let pokemonId = await pokemonTotal.filter(poke => poke.id == id)
       pokemonId.length ?
@@ -45,7 +46,48 @@ router.get('/pokemons/:id', async (req, res) => {
 })
 
 // ******* CREATE POKEMON (POST) *********
-router.post('/pokemons',)
+router.post('/pokemons', async (req, res) => {
+  const {
+    name,
+    types,
+    hp,
+    attack,
+    defense,
+    speed,
+    height,
+    weight,
+    img,
+    createdInDb
+  } = req.body;
+  try {
+    if (name) {
+      const pokemonCreated = await Pokemon.create({
+        name,
+        hp,
+        attack,
+        defense,
+        speed,
+        height,
+        weight,
+        img,
+        createdInDb
+      })
+
+      const pokemonTypes = await Type.findAll({
+        where: { name: types }
+      })
+
+      pokemonCreated.addType(pokemonTypes)
+      return res.send('Pokemon created 😊')
+    } else {
+      return res.status(400).send('Pokemon name is required')
+    }
+  }
+  catch (error) {
+    res.status(400).json(error.message);
+  }
+
+})
 
 // ******* GET POKEMON TYPES *********
 router.get('/types', async (req, res) => {
