@@ -9,4 +9,15 @@ export function getPokemons() {
       payload: json.data
     })
   }
-} 
+}
+
+// **** Action to get types ****
+export function getTypes() {
+  return async function (dispatch) {
+    var types = await axios.get("http://localhost:3001/types")
+    return dispatch({
+      type: "GET_TYPES",
+      payload: types.data
+    })
+  }
+}

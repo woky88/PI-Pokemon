@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemons } from '../../actions';
+import { getPokemons, getTypes } from '../../actions';
 import { Link } from 'react-router-dom';
+import Card from '../Card/Card.jsx';
 
 export default function Home() {
 
@@ -11,7 +12,8 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getPokemons());
-  }, []);
+    dispatch(getTypes());
+  }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault();
@@ -47,6 +49,13 @@ export default function Home() {
             ))
           }
         </select>
+        {
+          allPokemons && allPokemons.map(el => {
+            return (
+              <Card name={el.name} types={el.types} image={el.img} id={el.id} />
+            )
+          })
+        }
       </div>
     </div>
 

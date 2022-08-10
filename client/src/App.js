@@ -9,8 +9,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Switch>
-          <Route exact strict path="/" component={LandingPage} />
-          <Route exact strict path="/home" component={Home} />
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/home" component={Home} />
           <Route exact strict path="*" component={Page404} />
         </Switch>
       </div>
