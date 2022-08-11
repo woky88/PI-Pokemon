@@ -28,14 +28,14 @@ export default function Card({ name, types, image, id }) {
 
   return (
     <div className={style.card}>
-      <h1>{name.charAt(0).toUpperCase() + name.slice(1)}</h1>
+      <h1 className={style.name}>{name.charAt(0).toUpperCase() + name.slice(1)}</h1>
+      <img className={style.img} src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" />
       <span className={` ${style.typetitle} ${typeC[types[0].name]}`}>Types</span>
-      <div>
+      <div className={style.types}>
         {
           types && types.map(
             (type) => <img src={`assets/types/${type.name}.png`} alt={type.name} key={type.id} />)
         }
-        <img src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" />
       </div>
     </div >
   )

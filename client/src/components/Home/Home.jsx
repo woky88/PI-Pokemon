@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPokemons, getTypes } from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card.jsx';
+import style from './Home.module.css';
 
 export default function Home() {
 
@@ -21,7 +22,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className={style.home}>
       <Link to='/'></Link>
       <h1>Pokemon PokeDex por mi</h1>
       <button onClick={e => { handleClick(e) }}>Reload</button>
@@ -49,13 +50,15 @@ export default function Home() {
             ))
           }
         </select>
-        {
-          allPokemons && allPokemons.map(el => {
-            return (
-              <Card name={el.name} types={el.types} image={el.img} id={el.id} />
-            )
-          })
-        }
+        <div className={style.cards}>
+          {
+            allPokemons && allPokemons.map(el => {
+              return (
+                <Card name={el.name} types={el.types} image={el.img} id={el.id} />
+              )
+            })
+          }
+        </div>
       </div>
     </div>
 

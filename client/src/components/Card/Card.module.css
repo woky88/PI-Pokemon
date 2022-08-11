@@ -1,18 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Source Sans Pro:wght@600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap');
 
 .card {
+  position: relative;
+  min-height: 14em;
+  width: 320px;
+  height: 400px;
+  text-decoration: none;
+  border-radius: 50px 50px 30px 15px;
+  box-shadow: 0 3px 3px #6FCF97;
+  background-color: #4E2ECF;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: [x0] 1fr [x1] 1fr [x2];
+  grid-template-columns: [x0] 1fr [x1] 1fr;
+  grid-template-rows: [y0] 40px [y1] 200px [y3] 40px [y4] 60px;
+  transition: all 0.4s ease;
+  gap: .5rem;
+  margin-top: 4rem;
+}
+
+.name {
+  grid-column: x0 / x1;
+  grid-row: y0/y1;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  font-weight: bolder;
+  color: white;
+  padding-left: 4%;
+  padding-top: 4%;
+}
+
+.img {
+  display: block;
+  margin: auto;
+  grid-column: x0 / x2;
+  grid-row: y1/y3;
+  max-width: 320px;
 }
 
 .typetitle {
   grid-column: x0 / x2;
   grid-row: y2/y3;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   font-weight: bolder;
   color: rgb(0, 0, 0);
+  align-items: center;
+  color: #FFFFFF;
 }
+
+.types {
+  grid-column: x0 / x2;
+  grid-row: y4/y5;
+  display: flex;
+  justify-content: center;
+  height: 35%;
+}
+
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
 
 /* Colores de Titulos */
 

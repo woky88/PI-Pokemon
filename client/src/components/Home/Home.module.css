@@ -1,0 +1,14 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1.3rem;
+  grid-row-gap: 1.3rem;
+  margin-left: 0.5%;
+  padding-bottom: 2%;
+}
+
+.home {
+  background: #1D1D42;
+  min-height: 100vh;
+}
