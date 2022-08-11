@@ -1,4 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Source Sans Pro:wght@600&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap');
 
 .card {
@@ -8,7 +7,7 @@
   height: 400px;
   text-decoration: none;
   border-radius: 50px 50px 30px 15px;
-  box-shadow: 0 3px 3px #6FCF97;
+  box-shadow: 3px 3px 15px 5px #6FCF97;
   background-color: #4E2ECF;
   overflow: hidden;
   display: grid;
@@ -23,8 +22,8 @@
   grid-column: x0 / x1;
   grid-row: y0/y1;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 24px;
-  font-weight: bolder;
+  font-size: 2.5rem;
+  font-weight: bold;
   color: white;
   padding-left: 4%;
   padding-top: 4%;
@@ -42,7 +41,7 @@
   grid-column: x0 / x2;
   grid-row: y2/y3;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 14px;
+  font-size: 1.6rem;
   font-weight: bolder;
   color: rgb(0, 0, 0);
   align-items: center;
