@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemons, getTypes } from '../../actions';
+import { getPokemons, getTypes, filterPokemonsByType } from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card.jsx';
 import Paginated from '../Paginado/Paginado.jsx';
@@ -9,8 +9,11 @@ import style from './Home.module.css';
 export default function Home() {
 
   const dispatch = useDispatch()
-  const allPokemons = useSelector((state) => state.pokemons)
+  const allPokemons = useSelector(state => state.pokemons)
+  const all = useSelector(state => state.allPokemons)
   const types = useSelector(state => state.types)
+
+  const [pokLoaded, setPokLoaded] = useState(all.length ? true : false)
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage, setPokemonsPerPage] = useState(12)
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
@@ -22,13 +25,23 @@ export default function Home() {
   }
 
   useEffect(() => {
-    dispatch(getPokemons());
     dispatch(getTypes());
-  }, [dispatch]);
+    if (!pokLoaded) {
+      dispatch(getPokemons());
+    }
+  }, [pokLoaded, dispatch])
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [allPokemons.length, setCurrentPage]);
 
   function handleClick(e) {
     e.preventDefault();
     dispatch(getPokemons());
+  }
+
+  function handleFilterByType(e) {
+    dispatch(filterPokemonsByType(e.target.value))
   }
 
   return (
@@ -56,9 +69,10 @@ export default function Home() {
         </select>
 
         <h1 className={style.label}>Types :</h1>
-        <select value="AllTypes">
+        <select onChange={e => handleFilterByType(e)}>
+          <option value="All">all Types</option>
           {
-            types.map(type => (
+            types?.map(type => (
               <option value={type.name} key={type.name}>{type.name}</option>
             ))
           }
@@ -68,6 +82,7 @@ export default function Home() {
         pokemonsPerPage={pokemonsPerPage}
         allPokemons={allPokemons.length}
         paginated={paginated}
+        page={currentPage}
       />
       <div className={style.cards}>
         {
@@ -75,7 +90,9 @@ export default function Home() {
             typeof currentPokemons[0] === 'object' ?
               currentPokemons.map(el => {
                 return (
-                  <Card name={el.name} types={el.types} image={el.img} id={el.id} />
+                  <div>
+                    <Card name={el.name} types={el.types} image={el.img} id={el.id} key={el.id} />
+                  </div>
                 )
               }) :
               <div className={style.notfound}>
@@ -90,7 +107,5 @@ export default function Home() {
         }
       </div>
     </div>
-
   )
-
 }

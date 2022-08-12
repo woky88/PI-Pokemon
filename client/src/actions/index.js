@@ -3,7 +3,7 @@ import axios from 'axios'
 // **** Action to get all pokemons ****
 export function getPokemons() {
   return async function (dispatch) {
-    var json = await axios.get('http://localhost:3001/pokemons')
+    var json = await axios.get('http://localhost:3001/pokemons', {})
     return dispatch({
       type: "GET_POKEMONS",
       payload: json.data
@@ -19,5 +19,13 @@ export function getTypes() {
       type: "GET_TYPES",
       payload: types.data
     })
+  }
+}
+
+// **** Action to filter pokemons for type ****
+export function filterPokemonsByType(payload) {
+  return {
+    type: "FILTER_BY_TYPES",
+    payload
   }
 }

@@ -4,7 +4,7 @@ const { Pokemon, Type } = require('../../db.js');
 // ***** FUNCTION TO GET ALL POKEMONS FOR API *****
 const getPokemonsAPI = async () => {
   try {
-    const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=70&offset=300');
+    const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=70');
     const data = Promise.all(
       res.data.results.map(async (poke) => {
         let res2 = await axios.get(poke.url);
