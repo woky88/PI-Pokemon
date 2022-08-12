@@ -1,7 +1,8 @@
 import React from 'react';
 import style from './Card.module.css'
 
-export default function Card({ name, types, image, id }) {
+export default function Card({ name, types, img, id }) {
+
 
   let typeC = {
     fire: style.fire,
@@ -29,12 +30,18 @@ export default function Card({ name, types, image, id }) {
   return (
     <div className={style.card}>
       <h1 className={style.name}>{name.charAt(0).toUpperCase() + name.slice(1)}</h1>
-      <img className={style.img} src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" />
-      <span className={` ${style.typetitle} ${typeC[types[0].name]}`}>Types</span>
+      {
+        img ?
+          <img src={img} alt="Img not found" height="170px" className={style.img} />
+          :
+          <img src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" className={style.img} />
+      }
+      {/* <img className={style.img} src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" /> */}
+      <span className={` ${style.typetitle} ${typeC[types]}`}>Types</span>
       <div className={style.types}>
         {
           types && types.map(
-            (type) => <img src={`assets/types/${type.name}.png`} alt={type.name} key={type.id} />)
+            (type) => <img src={`assets/types/${type}.png`} alt={type} key={type} />)
         }
       </div>
     </div >

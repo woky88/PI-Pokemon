@@ -10,10 +10,8 @@ export default function Home() {
 
   const dispatch = useDispatch()
   const allPokemons = useSelector(state => state.pokemons)
-  const all = useSelector(state => state.allPokemons)
   const types = useSelector(state => state.types)
 
-  const [pokLoaded, setPokLoaded] = useState(all.length ? true : false)
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage, setPokemonsPerPage] = useState(12)
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
@@ -26,14 +24,13 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getTypes());
-    if (!pokLoaded) {
-      dispatch(getPokemons());
-    }
-  }, [pokLoaded, dispatch])
+    dispatch(getPokemons());
+  }, [dispatch])
 
   useEffect(() => {
     setCurrentPage(1);
   }, [allPokemons.length, setCurrentPage]);
+
 
   function handleClick(e) {
     e.preventDefault();
@@ -43,6 +40,7 @@ export default function Home() {
   function handleFilterByType(e) {
     dispatch(filterPokemonsByType(e.target.value))
   }
+
 
   return (
     <div className={style.home}>
@@ -91,13 +89,13 @@ export default function Home() {
               currentPokemons.map(el => {
                 return (
                   <div>
-                    <Card name={el.name} types={el.types} image={el.img} id={el.id} key={el.id} />
+                    <Card name={el.name} types={el.types} img={el.img} id={el.id} key={el.id} />
                   </div>
                 )
               }) :
               <div className={style.notfound}>
                 <img src='assets/pikachuConfused.png' alt="Pokemon not found" width='200px' />
-                <span>{currentPokemons[0]} not found</span>
+                <span className={style.label}>{currentPokemons[0]} not found</span>
               </div>
             :
             <div className={style.loading}>

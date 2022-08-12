@@ -57,7 +57,7 @@ router.post('/pokemons', async (req, res) => {
     height,
     weight,
     img,
-    createdInDb
+    createdPokemonDb
   } = req.body;
   try {
     if (name) {
@@ -70,7 +70,7 @@ router.post('/pokemons', async (req, res) => {
         height,
         weight,
         img,
-        createdInDb
+        createdPokemonDb
       })
 
       const pokemonTypes = await Type.findAll({

@@ -4,7 +4,7 @@ const { Pokemon, Type } = require('../../db.js');
 // ***** FUNCTION TO GET ALL POKEMONS FOR API *****
 const getPokemonsAPI = async () => {
   try {
-    const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=70');
+    const res = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=40&offset=150');
     const data = Promise.all(
       res.data.results.map(async (poke) => {
         let res2 = await axios.get(poke.url);
@@ -19,7 +19,8 @@ const getPokemonsAPI = async () => {
           weight: res2.data.weight,
           image: res2.data.sprites.other.home.front_default,
           types: res2.data.types.map((type) => {
-            return { name: type.type.name };
+            // return { name: type.type.name };
+            return type.type.name;
           })
         }
         return pokemons;
@@ -47,14 +48,15 @@ const getPokemonsInDb = async () => {
       let pokeInfo = {
         id: poke.id,
         name: poke.name,
-        hp: poke.life,
+        img: poke.img,
+        hp: poke.hp,
         attack: poke.attack,
         defense: poke.defense,
         speed: poke.speed,
         height: poke.height,
         weight: poke.weight,
-        image: poke.image,
-        types: pokeType
+        types: pokeType,
+        createdPokemonDb: poke.createdPokemonDb
       };
       pokeArray.push(pokeInfo);
     }

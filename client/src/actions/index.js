@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 // **** Action to get all pokemons ****
 export function getPokemons() {
   return async function (dispatch) {
@@ -25,7 +26,7 @@ export function getTypes() {
 // **** Action to filter pokemons for type ****
 export function filterPokemonsByType(payload) {
   return {
-    type: "FILTER_BY_TYPES",
+    type: 'FILTER_BY_TYPES',
     payload
   }
 }

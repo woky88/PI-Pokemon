@@ -52,7 +52,6 @@ module.exports = (sequelize) => {
 
     createdPokemonDb: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: true
     }
   }, {
