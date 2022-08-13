@@ -1,30 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemons, getTypes, filterPokemonsByType } from '../../actions';
+import { getPokemons, getTypes, filterPokemonsByType, filterPokemonsByCreated, orderByNameOrStrengh } from '../../actions';
 import { Link } from 'react-router-dom';
 import Card from '../Card/Card.jsx';
-import Paginated from '../Paginado/Paginado.jsx';
+import Paginado from '../Paginado/Paginado.jsx';
+import Navbar from '../NavBar/NavBar.jsx';
 import style from './Home.module.css';
 
 export default function Home() {
 
-  const dispatch = useDispatch()
-  const allPokemons = useSelector(state => state.pokemons)
-  const types = useSelector(state => state.types)
+  let dispatch = useDispatch()
+  let allPokemons = useSelector(state => state.pokemons)
+  let types = useSelector(state => state.types)
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pokemonsPerPage, setPokemonsPerPage] = useState(12)
-  const indexOfLastPokemon = currentPage * pokemonsPerPage;
-  const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-  const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
 
-  const paginated = (pageNum) => {
-    setCurrentPage(pageNum)
+  let [orden, setOrden] = useState('')
+  let [currentPage, setCurrentPage] = useState(1);
+  let [pokemonsPerPage, setPokemonsPerPage] = useState(12)
+  let indexOfLastPokemon = currentPage * pokemonsPerPage;
+  let indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
+  let currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
+
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber)
   }
 
   useEffect(() => {
     dispatch(getTypes());
-    dispatch(getPokemons());
+    dispatch(getPokemons())
   }, [dispatch])
 
   useEffect(() => {
@@ -41,17 +44,25 @@ export default function Home() {
     dispatch(filterPokemonsByType(e.target.value))
   }
 
+  function handleFilterCreated(e) {
+    dispatch(filterPokemonsByCreated(e.target.value))
+  }
+
+  function handleSort(e) {
+    e.preventDefault();
+    dispatch(orderByNameOrStrengh(e.target.value));
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`)
+  }
 
   return (
     <div className={style.home}>
-      <Link to='/'></Link>
-      <h1>Pokemon PokeDex por mi</h1>
-
+      <Navbar />
       <div className={style.filter}>
         <button className={style.poke} onClick={e => { handleClick(e) }}>Reload</button>
 
         <h1 className={style.label}>Filtros :</h1>
-        <select>
+        <select onChange={e => handleSort(e)}>
           <option value="normal">Normal</option>
           <option value="asc">A - Z</option>
           <option value="desc">Z - A</option>
@@ -60,7 +71,7 @@ export default function Home() {
         </select>
 
         <h1 className={style.label}>Created or API :</h1>
-        <select>
+        <select onChange={e => handleFilterCreated(e)}>
           <option value="All">All</option>
           <option value="Api">API</option>
           <option value="Created">Created</option>
@@ -76,10 +87,10 @@ export default function Home() {
           }
         </select>
       </div>
-      <Paginated
+      <Paginado
         pokemonsPerPage={pokemonsPerPage}
         allPokemons={allPokemons.length}
-        paginated={paginated}
+        paginado={paginado}
         page={currentPage}
       />
       <div className={style.cards}>
@@ -89,7 +100,7 @@ export default function Home() {
               currentPokemons.map(el => {
                 return (
                   <div>
-                    <Card name={el.name} types={el.types} img={el.img} id={el.id} key={el.id} />
+                    <Card name={el.name} types={el.types} img={el.img} id={el.id} />
                   </div>
                 )
               }) :

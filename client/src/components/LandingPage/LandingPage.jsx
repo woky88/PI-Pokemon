@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { getPokemons, getTypes } from '../../actions';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import style from './LandingPage.module.css';
 import video from './LandingVideo.mkv'
 
 export default function LandingPage() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTypes());
+    dispatch(getPokemons());
+  }, [dispatch])
+
   return (
     <div>
       <video className={style.video} autoPlay loop muted>

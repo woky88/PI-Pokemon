@@ -78,9 +78,9 @@ const getAllPokemons = async () => {
 const getByName = async (name) => {
   let PokemonName = name.toLowerCase();
   try {
-    const reqId = await axios.get(`https://pokeapi.co/api/v2/pokemon/${PokemonName}`);
-    const response = await reqId.data;
-    let poke = {
+    const reqId = await axios.get("https://pokeapi.co/api/v2/pokemon/" + PokemonName);
+    const response = reqId.data;
+    let poke = [{
       id: response.id,
       name: response.name,
       hp: response.stats[0].base_stat,
@@ -91,7 +91,7 @@ const getByName = async (name) => {
       weight: response.weight,
       image: response.sprites.other.home.front_default,
       types: response.types.map(t => t.type.name)
-    }
+    }];
     return poke;
   } catch (error) {
     console.log(error)

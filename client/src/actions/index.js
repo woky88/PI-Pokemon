@@ -30,3 +30,37 @@ export function filterPokemonsByType(payload) {
     payload
   }
 }
+
+// **** Action to filter created or API ****
+export function filterPokemonsByCreated(payload) {
+  return {
+    type: 'FILTER_BY_CREATED',
+    payload
+  }
+}
+
+// **** Action to order pokemons by name ****
+export function orderByNameOrStrengh(payload) {
+  return {
+    type: 'ORDER_BY_NAME',
+    payload: payload
+  }
+}
+
+// **** Action to search by name ****
+export function getPokemonName(name) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get("http://localhost:3001/pokemons?name=" + name)
+      // console.log(json.data)
+
+      return dispatch({
+        type: "GET_POKEMON_NAME",
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error)
+
+    }
+  }
+}
