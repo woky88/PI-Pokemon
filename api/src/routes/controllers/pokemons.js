@@ -33,74 +33,118 @@ const getPokemonsAPI = async () => {
 }
 
 // ***** FUNCTION TO GET ALL POKEMONS FOR DB *****
-const getPokemonsInDb = async () => {
+// const getPokemonsInDb = async () => {
 
-  try {
-    const dbPokemons = await Pokemon.findAll({
-      include: {
-        model: Type,
-        attributes: ["name"],
+//   try {
+//     const dbPokemons = await Pokemon.findAll({
+//       include: {
+//         model: Type,
+//         attributes: ["name"],
+//       }
+//     })
+//     const pokeArray = [];
+//     for (let poke of dbPokemons) {
+//       let pokeType = poke.types.map(t => t.name);
+//       let pokeInfo = {
+//         id: poke.id,
+//         name: poke.name,
+//         img: poke.img,
+//         hp: poke.hp,
+//         attack: poke.attack,
+//         defense: poke.defense,
+//         speed: poke.speed,
+//         height: poke.height,
+//         weight: poke.weight,
+//         types: pokeType,
+//         createdPokemonDb: poke.createdPokemonDb
+//       };
+//       pokeArray.push(pokeInfo);
+//     }
+//     return pokeArray;
+//   } catch (error) {
+//     return error.message;
+//   }
+// }
+const getDbInfo = async () => {
+  const data = (await Pokemon.findAll({
+    include: {
+      model: Type,
+      attributes: ['name'],
+      through: {
+        attributes: [],
       }
-    })
-    const pokeArray = [];
-    for (let poke of dbPokemons) {
-      let pokeType = poke.types.map(t => t.name);
-      let pokeInfo = {
-        id: poke.id,
-        name: poke.name,
-        img: poke.img,
-        hp: poke.hp,
-        attack: poke.attack,
-        defense: poke.defense,
-        speed: poke.speed,
-        height: poke.height,
-        weight: poke.weight,
-        types: pokeType,
-        createdPokemonDb: poke.createdPokemonDb
-      };
-      pokeArray.push(pokeInfo);
     }
-    return pokeArray;
-  } catch (error) {
-    return error.message;
-  }
+  })).map(pokemon => {
+    const json = pokemon.toJSON();
+    return {
+      ...json,
+      types: json.types.map(type => type.name)
+    }
+  });
+
+  return data
 }
 
 // ****** FUNCTION TO GET ALL POKEMONS (API AND DB) ******
 const getAllPokemons = async () => {
   const api = await getPokemonsAPI();
-  const database = await getPokemonsInDb();
-  const pokemonTotal = [...api, ...database];
+  const database = await getDbInfo();
+  const pokemonTotal = api.concat(database);
   return pokemonTotal;
 }
 
 // ****** FUNCTION TO GET POKEMON BY NAME ******
-const getByName = async (name) => {
-  let PokemonName = name.toLowerCase();
+// const getByName = async (name) => {
+//   let PokemonName = name.toLowerCase();
+//   try {
+//     const reqId = await axios.get("https://pokeapi.co/api/v2/pokemon/" + PokemonName);
+//     const response = reqId.data;
+//     let poke = [{
+//       id: response.id,
+//       name: response.name,
+//       hp: response.stats[0].base_stat,
+//       attack: response.stats[1].base_stat,
+//       defense: response.stats[2].base_stat,
+//       speed: response.stats[5].base_stat,
+//       height: response.height,
+//       weight: response.weight,
+//       image: response.sprites.other.home.front_default,
+//       types: response.types.map(t => t.type.name)
+//     }];
+//     return poke;
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+const getPokeInfoxName = async (name) => {
   try {
-    const reqId = await axios.get("https://pokeapi.co/api/v2/pokemon/" + PokemonName);
-    const response = reqId.data;
-    let poke = [{
-      id: response.id,
-      name: response.name,
-      hp: response.stats[0].base_stat,
-      attack: response.stats[1].base_stat,
-      defense: response.stats[2].base_stat,
-      speed: response.stats[5].base_stat,
-      height: response.height,
-      weight: response.weight,
-      image: response.sprites.other.home.front_default,
-      types: response.types.map(t => t.type.name)
-    }];
-    return poke;
-  } catch (error) {
-    console.log(error)
+    const apiPokeUrl = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon/" + name
+    );
+    const results = apiPokeUrl.data;
+
+    const pokemonInfo = {
+      id: results.id,
+      name: results.name,
+      types: results.types.map((t) => t.type.name),
+      image: results.sprites.other["official-artwork"].front_default,
+      weight: results.weight,
+      height: results.height,
+    };
+    console.log(pokemonInfo);
+
+    return pokemonInfo;
+  } catch (e) {
+    if (e.status === 404) return null;
   }
-}
+};
 
 module.exports = {
   getPokemonsAPI,
-  getPokemonsInDb,
+  // getPokemonsInDb,
+  getDbInfo,
   getAllPokemons,
-  getByName
+  getPokeInfoxName,
+  // getByName
 }

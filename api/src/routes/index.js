@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllPokemons, getPokemonsInDb, getByName } = require('./controllers/pokemons.js');
+const { getAllPokemons, getPokeInfoxName, getDbInfo } = require('./controllers/pokemons.js');
 const { getTypes } = require('./controllers/types.js');
 const { Pokemon, Type } = require('../db.js');
 
@@ -11,23 +11,29 @@ const router = Router();
 
 // ******* GET ALL POKEMONS  *********
 router.get('/pokemons', async (req, res) => {
-  const { name } = req.query;
-  try {
-    let pokemonDB = await getPokemonsInDb();
-    if (name) {
-      const pokemonApi = await getByName(name)
-      let pokeName = pokemonDB.find(poke => poke.name.toLowerCase() === name.toLowerCase())
-      if (pokemonApi) return res.status(200).json(pokemonApi);
-      if (pokeName) return res.status(200).json(pokeName);
-      else return res.status(400).send("El nombre del pokemon no existe 😒")
+  const name = req.query.name;
+
+  if (name) {
+    const pokemonName = await getPokeInfoxName(name.toLowerCase());
+
+    if (pokemonName) {
+      return res.status(200).send([pokemonName]);
     } else {
-      const PokeTotal = await getAllPokemons();
-      return res.status(200).json(PokeTotal);
+      const pokemonsDB = await getDbInfo();
+      const pokemonNAM = pokemonsDB.filter(
+        el => el.name.toLowerCase() == name.toLowerCase()
+      );
+
+      return pokemonNAM.length
+        ? res.status(200).send(pokemonNAM)
+        : res.status(404).send("Pokemon not found");
     }
-  } catch (error) {
-    res.status(400).json(error.message);
+  } else {
+    const pokemonsTotal = await getAllPokemons();
+
+    return res.status(200).send(pokemonsTotal);
   }
-})
+});
 
 // ******* GET POKEMON BY ID *********
 router.get('/pokemons/:id', async (req, res) => {

@@ -59,7 +59,7 @@ export function getPokemonName(name) {
         payload: json.data
       })
     } catch (error) {
-      console.log(error)
+      alert("El nombre del pokemon no existe")
 
     }
   }

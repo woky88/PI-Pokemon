@@ -5,7 +5,7 @@ import style from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch()
-  const [name, setName] = useState("")
+  let [name, setName] = useState("")
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -14,7 +14,18 @@ export default function SearchBar() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(getPokemonName(name))
+    if (name !== "") {
+      dispatch(getPokemonName(name))
+      setName(name = "")
+    }
+  }
+
+
+  function handleKeyDown(e) {
+    setName(e.target.value)
+    if (e.key === 'Enter') {
+      handleSubmit(e)
+    }
   }
 
   return (
@@ -25,6 +36,7 @@ export default function SearchBar() {
           type="text"
           placeholder="Search Pokemon..."
           onChange={(e) => handleInputChange(e)}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
         <button type="submit" className={style.searchBtn} style={{ outline: 'none' }}>
           Buscar
