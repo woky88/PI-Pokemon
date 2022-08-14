@@ -36,12 +36,11 @@ export default function Card({ name, types, img, id }) {
           :
           <img src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" className={style.img} />
       }
-      {/* <img className={style.img} src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" /> */}
       <span className={` ${style.typetitle} ${typeC[types]}`}>Types</span>
       <div className={style.types}>
         {
           types && types.map(
-            (type) => <img src={`assets/types/${type}.png`} alt={type} key={type} />)
+            (type) => <img src={`assets/type4/${type}.png`} alt={type} key={type} />)
         }
       </div>
     </div >

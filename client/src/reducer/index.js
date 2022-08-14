@@ -27,6 +27,11 @@ function rootReducer(state = initialState, action) {
         types: action.payload,
       }
 
+    case "POST_POKEMON":
+      return {
+        ...state
+      }
+
     case "FILTER_BY_TYPES":
       const allPokemons = state.allPokemons
       // const statusFiltered = allPokemons.filter(el => el.types[0].name === action.payload)
@@ -54,10 +59,11 @@ function rootReducer(state = initialState, action) {
             return 1;
           }
           if (b.name.toLowerCase() > a.name.toLowerCase()) {
-            return -1;
+            return;
           }
           return 0;
         })
+
       }
       if (action.payload === 'desc') {
         sortedArray = state.pokemons.sort(function (a, b) {

@@ -64,3 +64,15 @@ export function getPokemonName(name) {
     }
   }
 }
+
+// **** Action to post pokemon ****
+export function postPokemon(payload) {
+  return async function (dispatch) {
+    const pokemon = await axios.post("http://localhost:3001/pokemons", payload)
+
+    return {
+      type: "POST_POKEMON",
+      payload: pokemon
+    }
+  }
+}

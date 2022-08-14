@@ -7,7 +7,7 @@ export default function NavBar() {
   return (
     <nav className={style.nav}>
       <Link to='/'>
-        <span className={style.landinglink}>
+        <span>
           <img id="logoPoke" src={`assets/logo.png`} width="120" alt="landing" />
         </span>
       </Link>
