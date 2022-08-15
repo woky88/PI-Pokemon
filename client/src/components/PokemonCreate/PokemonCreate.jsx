@@ -120,11 +120,23 @@ export default function PokemonCreate() {
         ...input,
         types: [...input.types, e.target.value]
       })
+
+      setErrors(validate({
+        ...input,
+        types: [...input.types, e.target.value]
+      }
+      ))
     } else if (!e.target.checked) {
       setInput({
         ...input,
         types: input.types.filter(el => el !== e.target.value)
       })
+
+      setErrors(validate({
+        ...input,
+        types: input.types.filter(el => el !== e.target.value)
+      }
+      ))
     }
   }
 
@@ -341,6 +353,14 @@ export default function PokemonCreate() {
             ))
           }
           <div className={style.contBtn} >
+            {
+              errors.types ? (
+                <div className={style.errorTypes}>
+                  <p>{errors.types}</p>
+                </div>
+              ) :
+                <i></i>
+            }
             <button className={style.btnSubmit} type='submit'> Create Pokemon</button>
           </div>
         </div>

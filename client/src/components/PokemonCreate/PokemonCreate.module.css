@@ -162,6 +162,7 @@ body {
   color: red;
 }
 
-.iconError {
+.errorTypes {
+  font-size: 4rem;
   color: red;
 }
