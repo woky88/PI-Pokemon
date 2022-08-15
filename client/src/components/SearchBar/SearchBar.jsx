@@ -16,7 +16,7 @@ export default function SearchBar() {
     e.preventDefault();
     if (name !== "") {
       dispatch(getPokemonName(name))
-      setName(name = "")
+      setName(e.target.value = "")
     }
   }
 
@@ -29,7 +29,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div>
+    <div className={style.searchBox}>
       <form onSubmit={(e) => handleSubmit(e)} >
         <input
           className={style.searchTxt}

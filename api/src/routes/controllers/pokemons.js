@@ -33,38 +33,6 @@ const getPokemonsAPI = async () => {
 }
 
 // ***** FUNCTION TO GET ALL POKEMONS FOR DB *****
-// const getPokemonsInDb = async () => {
-
-//   try {
-//     const dbPokemons = await Pokemon.findAll({
-//       include: {
-//         model: Type,
-//         attributes: ["name"],
-//       }
-//     })
-//     const pokeArray = [];
-//     for (let poke of dbPokemons) {
-//       let pokeType = poke.types.map(t => t.name);
-//       let pokeInfo = {
-//         id: poke.id,
-//         name: poke.name,
-//         img: poke.img,
-//         hp: poke.hp,
-//         attack: poke.attack,
-//         defense: poke.defense,
-//         speed: poke.speed,
-//         height: poke.height,
-//         weight: poke.weight,
-//         types: pokeType,
-//         createdPokemonDb: poke.createdPokemonDb
-//       };
-//       pokeArray.push(pokeInfo);
-//     }
-//     return pokeArray;
-//   } catch (error) {
-//     return error.message;
-//   }
-// }
 const getDbInfo = async () => {
   const data = (await Pokemon.findAll({
     include: {
@@ -142,9 +110,7 @@ const getPokeInfoxName = async (name) => {
 
 module.exports = {
   getPokemonsAPI,
-  // getPokemonsInDb,
   getDbInfo,
   getAllPokemons,
   getPokeInfoxName,
-  // getByName
 }

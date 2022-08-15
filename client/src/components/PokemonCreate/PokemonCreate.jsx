@@ -4,10 +4,84 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postPokemon, getTypes, getPokemons } from '../../actions';
 import style from './PokemonCreate.module.css';
 
+function validate(input, pokemons) {
+  let errors = {};
+  let RegExpression = /^[a-zA-Z\s]*$/;
+
+  if (!input.name) {
+    errors.name = 'A name is required'
+  }
+  if (!RegExpression.test(input.name)) {
+    errors.name = 'Numbers or special characters are not allowed'
+  }
+  if (input.name.length > 18) {
+    errors.name = `The name can't be longer than 18 characters`
+  }
+
+  if (input.hp < 1 || input.hp > 150) {
+    if (input.hp < 1) {
+      errors.hp = 'The life of the Pokemon must be higher than 1'
+    }
+    if (input.hp > 150) {
+      errors.hp = 'The life of the Pokemon must be less than 150'
+    }
+  }
+  if (input.attack < 1 || input.attack > 200) {
+    if (input.attack < 1) {
+      errors.attack = 'The attack of the Pokemon must be higher than 1'
+    }
+    if (input.attack > 200) {
+      errors.attack = 'The attack of the Pokemon must be less than 200'
+    }
+  }
+  if (input.defense < 1 || input.defense > 200) {
+    if (input.defense < 1) {
+      errors.defense = 'The defense of the Pokemon must be higher than 1'
+    }
+    if (input.defense > 200) {
+      errors.defense = 'The defense of the Pokemon must be less than 200'
+    }
+  }
+  if (input.speed < 1 || input.speed > 100) {
+    if (input.speed < 1) {
+      errors.speed = 'The speed of the Pokemon must be higher than 1'
+    }
+    if (input.speed > 100) {
+      errors.speed = 'The speed of the Pokemon must be less than 100'
+    }
+  }
+  if (input.weight < 1 || input.weight > 1500) {
+    if (input.weight < 1) {
+      errors.weight = 'The weight of the Pokemon must be higher than 1'
+    }
+    if (input.weight > 1500) {
+      errors.weight = 'The weight of the Pokemon must be less than 1500'
+    }
+  }
+  if (input.height < 1 || input.height > 80) {
+    if (input.height < 1) {
+      errors.height = 'The height of the Pokemon must be higher than 1 dam'
+    }
+    if (input.height > 80) {
+      errors.height = 'The height of the Pokemon must be less than 80 dam'
+    }
+  }
+
+  if (!input.types.length) {
+    errors.types = 'Must choose a pokemon type'
+  }
+  if (input.types.length > 2) {
+    errors.types = `You can't choose more than 2 types per Pokemon`
+  }
+
+  return errors;
+}
+
 export default function PokemonCreate() {
   const dispatch = useDispatch()
   const history = useHistory()
   const types = useSelector(state => state.types)
+  const [errors, setErrors] = useState({})
 
   const [input, setInput] = useState({
     name: '',
@@ -30,6 +104,10 @@ export default function PokemonCreate() {
       ...input,
       [e.target.name]: e.target.value
     })
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
   }
 
   function handleCheck(e) {
@@ -85,8 +163,21 @@ export default function PokemonCreate() {
               value={input.name}
               name="name"
               onChange={(e) => handleChange(e)}
+              style={input.name.length ? errors.name ? { borderColor: '#e74c3c' } : { borderColor: '#2ecc71' } : {}}
+              autocomplete="off"
             />
           </div>
+          {
+            errors.name ? (
+              <div>
+                <p className={style.error}>{errors.name}</p>
+              </div>
+            ) :
+              input.name.length ?
+                <i style={{ color: '#2ecc71' }}></i>
+                :
+                <i></i>
+          }
 
           <div>
             <label>HP :</label>
@@ -95,8 +186,20 @@ export default function PokemonCreate() {
               value={input.hp}
               name="hp"
               onChange={(e) => handleChange(e)}
+              style={input.hp.length ? errors.hp ? { borderColor: '#e74c3c' } : { borderColor: '#2ecc71' } : {}}
             />
           </div>
+          {
+            errors.hp ? (
+              <div>
+                <p className={style.error}>{errors.hp}</p>
+              </div>
+            ) :
+              input.hp.length ?
+                <i style={{ color: '#2ecc71' }}></i>
+                :
+                <i></i>
+          }
 
           <div>
             <label>Attack :</label>
@@ -105,8 +208,20 @@ export default function PokemonCreate() {
               value={input.attack}
               name="attack"
               onChange={(e) => handleChange(e)}
+              style={input.attack.length ? errors.attack ? { borderColor: '#e74c3c' } : { borderColor: '#2ecc71' } : {}}
             />
           </div>
+          {
+            errors.attack ? (
+              <div>
+                <p className={style.error}>{errors.attack}</p>
+              </div>
+            ) :
+              input.attack.length ?
+                <i style={{ color: '#2ecc71' }}></i>
+                :
+                <i></i>
+          }
 
           <div>
             <label>Defense :</label>
@@ -115,8 +230,20 @@ export default function PokemonCreate() {
               value={input.defense}
               name="defense"
               onChange={(e) => handleChange(e)}
+              style={input.defense.length ? errors.defense ? { borderColor: '#e74c3c' } : { borderColor: '#2ecc71' } : {}}
             />
           </div>
+          {
+            errors.defense ? (
+              <div>
+                <p className={style.error}>{errors.defense}</p>
+              </div>
+            ) :
+              input.defense.length ?
+                <i style={{ color: '#2ecc71' }}></i>
+                :
+                <i></i>
+          }
 
           <div>
             <label>Speed :</label>
@@ -125,8 +252,20 @@ export default function PokemonCreate() {
               value={input.speed}
               name="speed"
               onChange={(e) => handleChange(e)}
+              style={input.speed.length ? errors.speed ? { borderColor: '#e74c3c' } : { borderColor: '#2ecc71' } : {}}
             />
           </div>
+          {
+            errors.speed ? (
+              <div>
+                <p className={style.error}>{errors.speed}</p>
+              </div>
+            ) :
+              input.speed.length ?
+                <i style={{ color: '#2ecc71' }}></i>
+                :
+                <i></i>
+          }
 
           <div>
             <label>Weight :</label>
@@ -135,8 +274,20 @@ export default function PokemonCreate() {
               value={input.weight}
               name="weight"
               onChange={(e) => handleChange(e)}
+              style={input.weight.length ? errors.weight ? { borderColor: '#e74c3c' } : { borderColor: '#2ecc71' } : {}}
             />
           </div>
+          {
+            errors.weight ? (
+              <div>
+                <p className={style.error}>{errors.weight}</p>
+              </div>
+            ) :
+              input.weight.length ?
+                <i style={{ color: '#2ecc71' }}></i>
+                :
+                <i></i>
+          }
 
           <div>
             <label>Height :</label>
@@ -145,8 +296,20 @@ export default function PokemonCreate() {
               value={input.height}
               name="height"
               onChange={(e) => handleChange(e)}
+              style={input.height.length ? errors.height ? { borderColor: '#e74c3c' } : { borderColor: '#2ecc71' } : {}}
             />
           </div>
+          {
+            errors.height ? (
+              <div>
+                <p className={style.error}>{errors.height}</p>
+              </div>
+            ) :
+              input.height.length ?
+                <i style={{ color: '#2ecc71' }}></i>
+                :
+                <i></i>
+          }
 
           <div>
             <label>Image :</label>
