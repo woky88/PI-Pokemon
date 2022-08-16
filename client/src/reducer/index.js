@@ -59,7 +59,7 @@ function rootReducer(state = initialState, action) {
             return 1;
           }
           if (b.name.toLowerCase() > a.name.toLowerCase()) {
-            return;
+            return -1;
           }
           return 0;
         })
@@ -123,6 +123,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pokemons: sortedArray
+      }
+
+    case "GET_DETAIL":
+      return {
+        ...state,
+        detail: action.payload
       }
 
     default:

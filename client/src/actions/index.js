@@ -76,3 +76,18 @@ export function postPokemon(payload) {
     }
   }
 }
+
+// **** Action to get pokemon by id ****
+export function getPokemonById(id) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get('http://localhost:3001/pokemons/' + id)
+      return dispatch({
+        type: "GET_DETAIL",
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllPokemons, getPokeInfoxName, getDbInfo } = require('./controllers/pokemons.js');
+const { getAllPokemons, getPokeInfoxName, getDbInfo, getPokeInfo } = require('./controllers/pokemons.js');
 const { getTypes } = require('./controllers/types.js');
 const { Pokemon, Type } = require('../db.js');
 
@@ -36,18 +36,26 @@ router.get('/pokemons', async (req, res) => {
 });
 
 // ******* GET POKEMON BY ID *********
-router.get('/pokemons/:id', async (req, res) => {
-  const id = req.params.id;
-  try {
-    const pokemonTotal = await getAllPokemons()
-    if (id) {
-      let pokemonId = await pokemonTotal.filter(poke => poke.id == id)
-      pokemonId.length ?
-        res.status(200).json(pokemonId) :
-        res.status(404).json({ message: 'Pokemon not found' })
-    }
-  } catch (error) {
-    res.status(404).json(error.message);
+router.get('/pokemons/:idPokemon', async (req, res) => {
+  const { idPokemon } = req.params
+
+  let pokemonInfo;
+  if (idPokemon >= 1 && idPokemon <= 898 || idPokemon >= 10001 && idPokemon <= 10220) {
+    const pokemonInfo = await getPokeInfo(idPokemon)
+
+    return pokemonInfo ?
+      res.status(200).send([pokemonInfo]) :
+      res.status(404).send('Pokemon not found')
+  }
+
+  const pokemonsTotal = await getDbInfo()
+
+  if (!pokemonInfo && idPokemon) {
+    const pokemonId = pokemonsTotal.filter(el => el.id == idPokemon)
+
+    return pokemonId.length ?
+      res.status(200).send(pokemonId) :
+      res.status(404).send('Pokemon not found')
   }
 })
 

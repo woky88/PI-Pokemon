@@ -108,9 +108,37 @@ const getPokeInfoxName = async (name) => {
   }
 };
 
+//*** Function to get info by ID */
+const getPokeInfo = async (id) => {
+  try {
+    const apiPokeUrl = await axios.get("https://pokeapi.co/api/v2/pokemon/" + id);
+    const results = apiPokeUrl.data;
+
+    const pokemonInfo = {
+      id: results.id,
+      name: results.name,
+      types: results.types.map((t) => t.type.name),
+      image: results.sprites.other['official-artwork'].front_default,
+      hp: results.stats[0].base_stat,
+      attack: results.stats[1].base_stat,
+      defense: results.stats[2].base_stat,
+      speed: results.stats[5].base_stat,
+      weight: results.weight,
+      height: results.height,
+    }
+    console.log(pokemonInfo)
+
+    return pokemonInfo;
+  } catch (e) {
+    console.error(e);
+    if (e.status === 404) return null;
+  }
+}
+
 module.exports = {
   getPokemonsAPI,
   getDbInfo,
   getAllPokemons,
   getPokeInfoxName,
+  getPokeInfo
 }

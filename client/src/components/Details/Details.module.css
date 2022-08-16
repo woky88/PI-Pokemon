@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap');
+
+.nav {
+  height: 10vh;
+  background-color: #1C1D23;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.btn {
+  align-content: flex-start;
+  font-size: 3rem;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  border: none;
+
+  padding: 16px 32px;
+  color: #fff;
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  line-height: 1;
+  border-radius: 8px;
+
+  background-image: linear-gradient(45deg, #2378c9 10%, #133079 90%);
+  background-position: 90% 0;
+  background-size: 200% 200%;
+  box-shadow: 0 2px 8px -1px #09113f;
+
+  transition: all 0.5s ease;
+}
+
+.btn:hover {
+  box-shadow: 0 0 px 10px 0 rgba(0, 40, 120, 0);
+  background-position: 0 0;
+}
+
+.imgLogo {
+  margin-left: 22%;
+  height: 70px;
+}
+
+.container {
+  /* margin-top: 20px;
+  border-radius: 50px 50px 30px 15px;
+  box-shadow: 3px 3px 15px 5px #6FCF97; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 97%;
+  margin: 0 auto;
+  margin-top: 28px;
+}
+
+.containerInfo {
+  width: 50%;
+  position: relative;
+  min-height: 14em;
+  height: 450px;
+  text-decoration: none;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: [x0] 1fr [x1] 1fr;
+  grid-template-rows: [y0] 40px [y1] 200px [y3] 40px [y4] 60px;
+  gap: .5rem;
+  border-radius: 50px 50px 30px 15px;
+  box-shadow: 3px 3px 15px 5px #6FCF97;
+}
+
+.name {
+  grid-column: x0 / x1;
+  grid-row: y0/y1;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 3.8rem;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  margin-left: 20px;
+}
+
+.id {
+  grid-column: x1 / x1;
+  grid-row: y0/y0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 3.8rem;
+  font-weight: bold;
+  color: white;
+  margin-top: 26px;
+  margin-left: 202px;
+}
+
+.img {
+  display: block;
+  margin: auto;
+  grid-column: x0 / x2;
+  grid-row: y1/y3;
+  max-width: 320px;
+  animation: fadeIn 1s;
+}
+
+.types {
+  grid-column: x0 / x2;
+  grid-row: y4/y5;
+  display: flex;
+  justify-content: center;
+  height: 23%;
+  padding-top: 62px;
+}
+
+.containerStats {
+  width: 50%;
+  height: 450px;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  align-items: center;
+  border-radius: 50px 50px 30px 15px;
+  box-shadow: 3px 3px 15px 5px #6FCF97;
+}
+
+.containerStats h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  margin-left: 20px;
+}
+
+.stats .bar .progress {
+  height: 22px;
+  width: 61%;
+  left: 0;
+  background: #f0f0f0;
+  position: relative;
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05),
+    0 1px rgba(255, 255, 255, 0.8);
+  animation: animate 1s cubic-bezier(1, 0, 0.5, 1) forwards;
+  margin-left: 111px
+}
+
+@keyframes animate {
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.bar .progress .hp {
+  height: 104%;
+  position: absolute;
+  left: 0;
+  border-radius: 10px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: red;
+  animation: animate 1s 1s cubic-bezier(1, 0, 0.5, 1) forwards;
+}
+
+.bar .progress .attack {
+  height: 104%;
+  position: absolute;
+  left: 0;
+  border-radius: 10px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: orange;
+  animation: animate 1s 1s cubic-bezier(1, 0, 0.5, 1) forwards;
+}
+
+.bar .progress .defense {
+  height: 104%;
+  position: absolute;
+  left: 0;
+  border-radius: 10px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: blue;
+  animation: animate 1s 1s cubic-bezier(1, 0, 0.5, 1) forwards;
+}
+
+.bar .progress .speed {
+  height: 104%;
+  position: absolute;
+  left: 0;
+  border-radius: 10px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: green;
+  animation: animate 1s 1s cubic-bezier(1, 0, 0.5, 1) forwards;
+}
+
+.progress span::before {
+  position: absolute;
+  content: "";
+  top: -10px;
+  right: 0;
+  height: 0;
+  width: 0;
+  border: 7px solid transparent;
+  border-bottom-width: 0px;
+  border-right-width: 0px;
+  border-top-color: #000;
+  opacity: 0;
+  animation: showText2 0.5s 1.5s linear forwards;
+}
+
+.progress span::after {
+  position: absolute;
+  top: -28px;
+  right: 0;
+  font-weight: 500;
+  background: #000;
+  color: #fff;
+  padding: 1px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+  opacity: 0;
+  animation: showText2 0.5s 1.5s linear forwards;
+}
+
+.container2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 97%;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+
+@keyframes showText2 {
+  100% {
+    opacity: 1;
+  }
+}
+
+.hp::after {
+  content: attr(per);
+}
+
+.attack::after {
+  content: attr(per);
+}
+
+.defense::after {
+  content: attr(per);
+}
+
+.speed::after {
+  content: attr(per);
+}
