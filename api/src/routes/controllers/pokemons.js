@@ -19,7 +19,6 @@ const getPokemonsAPI = async () => {
           weight: res2.data.weight,
           image: res2.data.sprites.other.home.front_default,
           types: res2.data.types.map((type) => {
-            // return { name: type.type.name };
             return type.type.name;
           })
         }
@@ -62,29 +61,6 @@ const getAllPokemons = async () => {
 }
 
 // ****** FUNCTION TO GET POKEMON BY NAME ******
-// const getByName = async (name) => {
-//   let PokemonName = name.toLowerCase();
-//   try {
-//     const reqId = await axios.get("https://pokeapi.co/api/v2/pokemon/" + PokemonName);
-//     const response = reqId.data;
-//     let poke = [{
-//       id: response.id,
-//       name: response.name,
-//       hp: response.stats[0].base_stat,
-//       attack: response.stats[1].base_stat,
-//       defense: response.stats[2].base_stat,
-//       speed: response.stats[5].base_stat,
-//       height: response.height,
-//       weight: response.weight,
-//       image: response.sprites.other.home.front_default,
-//       types: response.types.map(t => t.type.name)
-//     }];
-//     return poke;
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
 const getPokeInfoxName = async (name) => {
   try {
     const apiPokeUrl = await axios.get(
