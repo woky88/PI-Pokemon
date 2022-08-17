@@ -142,20 +142,27 @@ export default function PokemonCreate() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postPokemon(input))
-    alert("Pokemon created!")
-    setInput({
-      name: '',
-      hp: '',
-      attack: '',
-      defense: '',
-      speed: '',
-      weight: '',
-      height: '',
-      img: '',
-      types: [],
-    })
-    history.push('/home')
+    if (input.name == "") {
+      alert("Please fill all the fields correctly")
+    } else if (input.types == "") {
+      alert("Please fill all the fields correctly")
+    } else {
+      dispatch(postPokemon(input))
+      alert("Pokemon created!")
+      setInput({
+        name: '',
+        hp: '',
+        attack: '',
+        defense: '',
+        speed: '',
+        weight: '',
+        height: '',
+        img: '',
+        types: [],
+      })
+      history.push('/home')
+    }
+
   }
 
   return (

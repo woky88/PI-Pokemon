@@ -53,7 +53,7 @@ export default function Detail(props) {
                 <div className={style.stats}>
                   <div className={style.bar}>
                     <h1>Hp</h1>
-                    <div className={style.progress} ><span className={style.hp} style={{ width: pokemon[0].hp > 500 ? '500%' : pokemon[0].hp + '%' }} per={`${pokemon[0].hp}`}></span></div>
+                    <div className={style.progress} ><span className={style.hp} style={{ width: pokemon[0].hp > 100 ? '100%' : pokemon[0].hp + '%' }} per={`${pokemon[0].hp}`}></span></div>
                   </div>
 
                   <div className={style.bar}>
