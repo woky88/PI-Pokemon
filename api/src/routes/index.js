@@ -6,6 +6,7 @@ const { Pokemon, Type } = require('../db.js');
 
 const router = Router();
 
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
