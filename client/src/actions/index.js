@@ -4,7 +4,7 @@ import axios from 'axios'
 // **** Action to get all pokemons ****
 export function getPokemons() {
   return async function (dispatch) {
-    var json = await axios.get('http://localhost:3001/pokemons', {})
+    var json = await axios.get('/pokemons', {})
     return dispatch({
       type: "GET_POKEMONS",
       payload: json.data
@@ -15,7 +15,7 @@ export function getPokemons() {
 // **** Action to get types ****
 export function getTypes() {
   return async function (dispatch) {
-    var types = await axios.get("http://localhost:3001/types")
+    var types = await axios.get("/types")
     return dispatch({
       type: "GET_TYPES",
       payload: types.data
@@ -51,7 +51,7 @@ export function orderByNameOrStrengh(payload) {
 export function getPokemonName(name) {
   return async function (dispatch) {
     try {
-      const json = await axios.get("http://localhost:3001/pokemons?name=" + name)
+      const json = await axios.get("/pokemons?name=" + name)
       // console.log(json.data)
 
       return dispatch({
@@ -68,7 +68,7 @@ export function getPokemonName(name) {
 // **** Action to post pokemon ****
 export function postPokemon(payload) {
   return async function (dispatch) {
-    const pokemon = await axios.post("http://localhost:3001/pokemons", payload)
+    const pokemon = await axios.post("/pokemons", payload)
 
     return {
       type: "POST_POKEMON",
@@ -81,7 +81,7 @@ export function postPokemon(payload) {
 export function getPokemonById(id) {
   return async function (dispatch) {
     try {
-      var json = await axios.get('http://localhost:3001/pokemons/' + id)
+      var json = await axios.get('/pokemons/' + id)
       return dispatch({
         type: "GET_DETAIL",
         payload: json.data
@@ -95,7 +95,7 @@ export function getPokemonById(id) {
 // **** Action to delete pokemon
 export function deletePokemon(id) {
   return function (dispatch) {
-    return axios.delete('http://localhost:3001/delete/' + id)
+    return axios.delete('/delete/' + id)
       .then(res => dispatch({
         type: "DELETE_POKEMON"
       }))
