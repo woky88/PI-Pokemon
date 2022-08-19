@@ -2,7 +2,6 @@ import React from 'react';
 import style from './Card.module.css'
 import { deletePokemon, getPokemons } from '../../actions';
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export default function Card({ name, types, img, id }) {
@@ -32,7 +31,7 @@ export default function Card({ name, types, img, id }) {
   }
 
   const dispatch = useDispatch()
-  const history = useHistory()
+
 
   function handleDelete(id) {
     dispatch(deletePokemon(id))
