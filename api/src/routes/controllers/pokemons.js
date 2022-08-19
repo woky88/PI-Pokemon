@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../../db.js');
+const Op = require('sequelize');
 
 // ***** FUNCTION TO GET ALL POKEMONS FOR API *****
 const getPokemonsAPI = async () => {
@@ -40,6 +41,10 @@ const getDbInfo = async () => {
       through: {
         attributes: [],
       }
+      // ,
+      // where: {
+      //   [Op.ilike]: ['name']
+      // }
     }
   })).map(pokemon => {
     const json = pokemon.toJSON();

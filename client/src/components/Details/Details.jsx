@@ -12,13 +12,17 @@ export default function Detail(props) {
     dispatch(getPokemonById(props.match.params.id));
   }, [dispatch])
 
-  const pokemon = useSelector((state) => state.detail)
+  let pokemon = useSelector((state) => state.detail)
+
+  function ClearDetail() {
+    pokemon.shift();
+  }
 
   return (
     <div>
       <div className={style.nav}>
         <div>
-          <Link to='/home'><button className={style.btn}>Volver</button></Link>
+          <Link to='/home'><button onClick={e => ClearDetail()} className={style.btn}>Volver</button></Link>
         </div>
         <img className={style.imgLogo} src='https://fontmeme.com/permalink/220816/e6e6467a8f39aefa5d9ae9cf5f8c011d.png' alt='logo' />
       </div>

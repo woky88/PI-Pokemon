@@ -91,3 +91,14 @@ export function getPokemonById(id) {
     }
   }
 }
+
+// **** Action to delete pokemon
+export function deletePokemon(id) {
+  return function (dispatch) {
+    return axios.delete('http://localhost:3001/delete/' + id)
+      .then(res => dispatch({
+        type: "DELETE_POKEMON"
+      }))
+      .catch(e => console.log(e))
+  }
+} 

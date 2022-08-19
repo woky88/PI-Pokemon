@@ -146,6 +146,8 @@ export default function PokemonCreate() {
       alert("Please fill all the fields correctly")
     } else if (input.types == "") {
       alert("Please fill all the fields correctly")
+    } else if (input.types.length >= 3) {
+      alert("Please fill all the fields correctly")
     } else {
       dispatch(postPokemon(input))
       alert("Pokemon created!")

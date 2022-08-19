@@ -1,5 +1,9 @@
 import React from 'react';
 import style from './Card.module.css'
+import { deletePokemon, getPokemons } from '../../actions';
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Card({ name, types, img, id }) {
 
@@ -27,14 +31,26 @@ export default function Card({ name, types, img, id }) {
     shadow: style.shadow
   }
 
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  function handleDelete(id) {
+    dispatch(deletePokemon(id))
+    alert("Pokemon Muerto")
+    dispatch(getPokemons())
+  }
+
   return (
     <div className={style.card}>
       <h1 className={style.name}>{name.charAt(0).toUpperCase() + name.slice(1)}</h1>
       {
+        isNaN(id) && <p className={style.btnDelete} onClick={e => handleDelete(id)}>X</p>
+      }
+      {
         img ?
-          <img src={img} alt="Img not found" height="170px" className={style.img} />
+          <Link className={style.img} to={`/home/${id}`}><img src={img} alt="Img not found" height="170px" /> </Link>
           :
-          <img src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" className={style.img} />
+          <Link className={style.img} to={`/home/${id}`}><img src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" className={style.img} /> </Link>
       }
       <span className={` ${style.typetitle} ${typeC[types]}`}>Types</span>
       <div className={style.types}>
