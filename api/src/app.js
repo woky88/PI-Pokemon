@@ -24,7 +24,7 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-server.use(express.static('public'));
+server.use(express.static('public/assets/pokemons'));
 
 server.use('/', routes);
 
