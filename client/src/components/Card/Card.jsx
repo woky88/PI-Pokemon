@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 export default function Card({ name, types, img, id }) {
 
   const PokemonsImages = require.context('../../assets/pokemons', true)
-  const PokemonsTypes = require.context('../../assets/type4/', true)
+  const PokemonsTypes = require.context('../../assets/type4', true)
 
   let typeC = {
     fire: style.fire,
