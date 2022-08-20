@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemonName } from "../../actions";
 import style from "./SearchBar.module.css";
@@ -16,10 +17,8 @@ export default function SearchBar() {
     e.preventDefault();
     if (name !== "") {
       dispatch(getPokemonName(name))
-      setName(e.target.value = "")
     }
   }
-
 
   function handleKeyDown(e) {
     setName(e.target.value)

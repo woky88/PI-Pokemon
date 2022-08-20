@@ -6,6 +6,10 @@ import style from './Details.module.css';
 
 export default function Detail(props) {
 
+
+  const PokemonsImages = require.context('../../assets/pokemons', true)
+  const PokemonsTypes = require.context('../../assets/type4', true)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,13 +42,13 @@ export default function Detail(props) {
                   pokemon[0].img ?
                     <img src={pokemon[0].img} alt="Img not found" height="170px" className={style.img} />
                     :
-                    <img src={`/assets/pokemons/${pokemon[0].name}.gif`} alt="Img not found" height="300px" className={style.img} />
+                    <img src={PokemonsImages(`./${pokemon[0].name.charAt(0).toUpperCase() + pokemon[0].name.slice(1)}.gif`).default} alt="Img not found" height="300px" className={style.img} />
                 }
                 <div className={style.types}>
                   {
                     pokemon[0].types ? pokemon[0].types.map(el => {
                       return (
-                        <img src={`/assets/type4/${el}.png`} alt="Types" height="50px" key={el} />
+                        <img src={PokemonsTypes(`./${el}.png`).default} alt="Types" height="50px" key={el} />
                       )
                     }
                     ) :

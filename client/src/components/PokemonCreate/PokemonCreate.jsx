@@ -83,6 +83,8 @@ export default function PokemonCreate() {
   const types = useSelector(state => state.types)
   const [errors, setErrors] = useState({})
 
+  const PokemonsTypes = require.context('../../assets/type4', true)
+
   const [input, setInput] = useState({
     name: '',
     hp: '',
@@ -355,7 +357,7 @@ export default function PokemonCreate() {
                     onChange={(e) => handleCheck(e)}
                   />
                   <div className={style.circle} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  ><img src={`assets/type4/${type.name}.png`} alt={`${type.name}`} height="40px" /></div>
+                  ><img src={PokemonsTypes(`./${type.name}.png`).default} alt={`${type.name}`} height="40px" /></div>
                   {/* <div style={{ width: '8px' }}></div> */}
                 </div>
               </label>

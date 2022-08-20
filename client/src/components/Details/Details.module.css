@@ -69,7 +69,7 @@
   grid-template-rows: [y0] 40px [y1] 200px [y3] 40px [y4] 60px;
   gap: .5rem;
   border-radius: 50px 50px 30px 15px;
-  box-shadow: 3px 3px 15px 5px #6FCF97;
+  box-shadow: 3px 3px 15px 5px #00dff8;
 }
 
 .name {
@@ -119,7 +119,7 @@
   grid-template-rows: repeat(6, 1fr);
   align-items: center;
   border-radius: 50px 50px 30px 15px;
-  box-shadow: 3px 3px 15px 5px #6FCF97;
+  box-shadow: 3px 3px 15px 5px #00dff8;
 }
 
 .containerStats h1 {

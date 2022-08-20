@@ -21,6 +21,8 @@ export default function Home() {
   let indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
   let currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
 
+  const PokemonsImages = require.context('../../assets/', true)
+
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
@@ -109,13 +111,13 @@ export default function Home() {
                 )
               }) :
               <div className={style.notfound}>
-                <img src='assets/pikachuConfused.png' alt="Pokemon not found" width='200px' />
+                <img src={PokemonsImages('./pikachuConfused.png').default} alt="Pokemon not found" width='200px' />
                 <span className={style.label}>{currentPokemons[0]} not found</span>
               </div>
             :
             <div className={style.loading}>
               <h1 className={style.loadingText}>Loading...</h1>
-              <img src='assets/simple-pokeball-unscreen.gif' alt="Loading.." width='250px' />
+              <img src={PokemonsImages('./simple-pokeball-unscreen.gif').default} alt="Loading.." width='250px' />
             </div>
         }
       </div>
