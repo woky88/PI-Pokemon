@@ -4,6 +4,8 @@ import { deletePokemon, getPokemons } from '../../actions';
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 
+const PokemonsImages = require.context('../../assets/pokemons')
+const PokemonsTypes = require.context('../../assets/type4')
 
 export default function Card({ name, types, img, id }) {
 
@@ -36,7 +38,7 @@ export default function Card({ name, types, img, id }) {
 
   function handleDelete(id) {
     dispatch(deletePokemon(id))
-    alert("Pokemon Muerto")
+    alert("El pokemon a sido eliminado 😢")
     dispatch(getPokemons())
   }
 
@@ -50,13 +52,13 @@ export default function Card({ name, types, img, id }) {
         img ?
           <Link className={style.img} to={`/home/${id}`}><img src={img} alt="Img not found" height="170px" /> </Link>
           :
-          <Link className={style.img} to={`/home/${id}`}><img src={`public/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" className={style.img} /> </Link>
+          <Link className={style.img} to={`/home/${id}`}><img src={PokemonsImages(`./${name}.gif`)} alt="Img not found" height="190px" className={style.img} /> </Link>
       }
       <span className={` ${style.typetitle} ${typeC[types]}`}>Types</span>
       <div className={style.types}>
         {
           types && types.map(
-            (type) => <img src={`assets/type4/${type}.png`} alt={type} key={type} />)
+            (type) => <img src={PokemonsTypes(`${type}.png`)} alt={type} key={type} />)
         }
       </div>
     </div >
