@@ -12,7 +12,7 @@ const cors = require('cors');
 
 server.name = 'API';
 
-server.use(express.static(path.join('public')));
+server.use('/static', express.static('public'));
 server.use(cors())
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));

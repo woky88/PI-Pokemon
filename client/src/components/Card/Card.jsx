@@ -4,6 +4,7 @@ import { deletePokemon, getPokemons } from '../../actions';
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 
+
 export default function Card({ name, types, img, id }) {
 
 
@@ -49,7 +50,7 @@ export default function Card({ name, types, img, id }) {
         img ?
           <Link className={style.img} to={`/home/${id}`}><img src={img} alt="Img not found" height="170px" /> </Link>
           :
-          <Link className={style.img} to={`/home/${id}`}><img src={`/assets/pokemons/${name}.gif`} alt="Img not found" height="190px" className={style.img} /> </Link>
+          <Link className={style.img} to={`/home/${id}`}><img src={`../../../public/assets/${name}.gif`} alt="Img not found" height="190px" className={style.img} /> </Link>
       }
       <span className={` ${style.typetitle} ${typeC[types]}`}>Types</span>
       <div className={style.types}>

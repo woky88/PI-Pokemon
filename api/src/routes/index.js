@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { getAllPokemons, getPokeInfoxName, getDbInfo, getPokeInfo } = require('./controllers/pokemons.js');
 const { getTypes } = require('./controllers/types.js');
 const { Pokemon, Type } = require('../db.js');
+const fs = require('fs');
 
 
 const router = Router();
