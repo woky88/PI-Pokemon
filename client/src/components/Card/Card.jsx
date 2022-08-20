@@ -4,8 +4,6 @@ import { deletePokemon, getPokemons } from '../../actions';
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 
-// const PokemonsTypes = require.context('../../assets/type4/', true)
-
 export default function Card({ name, types, img, id }) {
 
   const PokemonsImages = require.context('../../assets/pokemons', true)
@@ -59,7 +57,7 @@ export default function Card({ name, types, img, id }) {
       <div className={style.types}>
         {
           types && types.map(
-            (type) => <img src={PokemonsTypes(`./${type}.png`).default} alt={type} key={type} />)
+            (type) => <img src={PokemonsTypes(`./${type.toLowerCase()}.png`).default} alt={type} key={type} />)
         }
       </div>
     </div >
