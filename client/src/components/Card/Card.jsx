@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 export default function Card({ name, types, img, id }) {
 
   const PokemonsImages = require.context('../../assets/pokemons', true)
+  const PokemonsTypes = require.context('../../assets/type4/', true)
 
   let typeC = {
     fire: style.fire,
@@ -52,13 +53,13 @@ export default function Card({ name, types, img, id }) {
         img ?
           <Link className={style.img} to={`/home/${id}`}><img src={img} alt="Img not found" height="170px" /> </Link>
           :
-          <Link className={style.img} to={`/home/${id}`}><img src={PokemonsImages(`./pikachu2.jpg`).default} alt="Img not found" height="190px" className={style.img} /> </Link>
+          <Link className={style.img} to={`/home/${id}`}><img src={PokemonsImages(`./${name.charAt(0).toUpperCase() + name.slice(1)}.gif`).default} alt="Img not found" height="190px" className={style.img} /> </Link>
       }
       <span className={` ${style.typetitle} ${typeC[types]}`}>Types</span>
       <div className={style.types}>
         {
           types && types.map(
-            (type) => <img src={`${type}.png`} alt={type} key={type} />)
+            (type) => <img src={PokemonsTypes(`./${type}.png`).default} alt={type} key={type} />)
         }
       </div>
     </div >
